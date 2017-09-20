@@ -204,7 +204,6 @@ public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position)
             public void onClick(View v) {
                 // 홀더에서 바로 꺼내면 final 로 변하기 때문에 태그를 붙여준다.
                 int holderPosition = ((RecyclerView.ViewHolder) v.getTag()).getAdapterPosition();
-                Log.d("불린값", ((ParentItem)visibleItems.get(holderPosition)).isChildViewExpanded+"");
                 if(((ParentItem)visibleItems.get(holderPosition)).isChildViewExpanded){
                     collapseChildView(holderPosition);
                 } else {
@@ -241,13 +240,11 @@ public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position)
    * 자식 뷰 숨기기
    */
   private void collapseChildView(int parentPosition) {
-      Log.d("parentPosition", parentPosition+"");
       ParentItem parentItem = (ParentItem) visibleItems.get(parentPosition);
       parentItem.isChildViewExpanded = false;
+      int childViewCount = childViewCount(parentPosition);
 
       List<ChildItem> invisibleChildItem = parentItem.childItems;
-
-      int childViewCount = childViewCount(parentPosition);
       for (int i = 0; i < childViewCount; i++) {
           invisibleChildItem.add((ChildItem) visibleItems.get(parentPosition+1));
           visibleItems.remove(parentPosition+1);
@@ -263,11 +260,10 @@ public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position)
  * 자식 뷰 펼치기
  */
 private void expandChildView(int parentPosition) {
-    Log.d("parentPosition", parentPosition+"");
     ParentItem parentItem = (ParentItem) visibleItems.get(parentPosition);
     parentItem.isChildViewExpanded = true;
     int childViewCount = parentItem.childItems.size();
-    Log.d("childViewCount", childViewCount+"");
+
     for (int i = childViewCount-1; i >= 0; i--) {
         visibleItems.add(parentPosition+1, parentItem.childItems.get(i));
     }

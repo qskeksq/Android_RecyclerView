@@ -23,7 +23,5 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new ItemDecoration(this));
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new CustomLayoutManager(this));
-
     }
-
 }
