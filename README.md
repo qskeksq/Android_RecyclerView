@@ -1,5 +1,7 @@
 # RecyclerView
 
+![](https://github.com/qskeksq/RecyclerView/blob/master/pic/AC_%5B20170920-184649%5D.gif)
+
 ## 필수 개념
 
 - Adapter
