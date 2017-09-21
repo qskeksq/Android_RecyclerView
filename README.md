@@ -33,6 +33,7 @@
 
 - ItemAnimator
     - 추가, 삭제, 정렬 할 때 아래의 함수를 호출해주면 ItemAnimator를 통해 애니메이션을 적용해 줄 수 있다.
+    - extends DefaultItemAnimator
     - notifyItemChanged(position)
     - notifyItemRemoved(position), notifyItemRangeRemoved(from, to)
     - notifyItemInserted(position), notifyItemRangeInserted(from, to)
@@ -40,12 +41,13 @@
 
 ## 추가 기능
 
-- Swipe, Drag&Drop
+- Swipe, Drag&Drop 애니메이션 적용
     - ItemTouchHelper
-    - ItemTouchHelperListener
-    - ItemTouchHelperCallBack
+    - ItemTouchHelperListener(커스텀 인터페이스)
+    - ItemTouchHelper.CallBack
 - ExpandableRecyclerView
     - viewType
+
 
 ## Position
 - getLayoutPosition()
