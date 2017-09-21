@@ -130,6 +130,50 @@ public class CustomItemAnimator extends DefaultItemAnimator {
 }
 ```
 
+> Custom Animator
+
+```java
+public void onDraw(Canvas c, RecyclerView recyclerView, RecyclerView.State state) {
+
+    super.onDraw(c, recyclerView, state);
+    int left = recyclerView.getPaddingLeft();
+    int right = recyclerView.getWidth() - recyclerView.getPaddingRight();
+    int childCount = recyclerView.getChildCount();
+    for (int i = 0; i < childCount; i++) {
+        View child = recyclerView.getChildAt(i);
+        RecyclerView.ViewHolder viewHolder = recyclerView.getChildViewHolder(child);
+        RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
+        int top = child.getBottom() + params.bottomMargin;
+        if(viewHolder instanceof ExpandableRecyclerAdapter.ParentItemVH){
+            int bottom = top + parentDivider.getIntrinsicHeight();
+            parentDivider.setBounds(left, top, right, bottom);
+            parentDivider.draw(c);
+        }else{
+            int bottom = top + subDivider.getIntrinsicHeight();
+            subDivider.setBounds(left+20, top, right-20, bottom);
+            subDivider.draw(c);
+        }
+    }
+}
+```
+
+```java
+@Override
+public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+
+    Log.i(TAG, "getItemOffsets");
+
+    RecyclerView.ViewHolder viewHolder = (parent.getChildViewHolder(view));
+
+    if(viewHolder instanceof ExpandableRecyclerAdapter.ParentItemVH){
+        outRect.set(0, 1, 0, 1);
+    }else{
+        outRect.set(40, 1, 1, 1);
+    }
+
+}
+```
+
 #### Custom LayoutManager 구현
   - extends LinearLayoutManager
 
@@ -387,3 +431,5 @@ public int getParentPosition(int position){
     return position;
 }
 ```
+
+https://github.com/wlsdudtm/ExpandableRecyclerview 코드 참고
