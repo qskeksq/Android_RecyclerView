@@ -40,6 +40,5 @@ public class ExpandableRecycler extends RecyclerView {
 
         ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelperCallback((ExpandableAdapter)adapter));
         helper.attachToRecyclerView(this);
-
     }
 }

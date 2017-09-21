@@ -50,6 +50,16 @@ public class ExpandableAdapter
         }
     }
 
+    public void addData(){
+        visibleItems.add(1, new ChildItem("뉴", CHILD_VIEWTYPE));
+        notifyItemInserted(1);
+    }
+
+    public void removeData(){
+        visibleItems.remove(1);
+        notifyItemRemoved(1);
+    }
+
     @Override
     public int getItemViewType(int position) {
         return visibleItems.get(position).getViewType();
