@@ -48,15 +48,38 @@
     - ItemTouchHelper.CallBack
 - ExpandableRecyclerView
     - viewType
-
-
+- 동적크기변화
+ 
+  
 ## Position
 - getLayoutPosition()
 - getAdapterPosition() : onBindViewHolder 메소드 안에 final int position을 사용하지 말라. (final인 position은 보장하지 않는다. 위치가 바뀌거나 지워질때 등)
 -> 해결방법. holder.getAdapterPosition을 이용
 - getPosition()
 
-### ExpandableRecyclerView & Swipe, Drag/Drop
+## 동적크기변화
+
+   자식뷰의 크기, 개수에 의해 리사이클러뷰 전체 크기 결정
+
+```java
+ViewTreeObserver.OnGlobalLayoutListener globalLayout = new ViewTreeObserver.OnGlobalLayoutListener() {
+    @Override
+    public void onGlobalLayout() {
+        int count = recyclerView.getLayoutManager().getChildCount();
+        height = recyclerView.getLayoutManager().getChildAt(0).getHeight()*5;
+        for (int i = 0; i < count; i++) {
+            Log.e("확인"+i, recyclerView.getLayoutManager().getChildAt(i).getWidth()+"");
+        }
+        ViewGroup.LayoutParams params=recyclerView.getLayoutParams();
+        params.height=height;
+        recyclerView.setLayoutParams(params);
+        recyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+    }
+};
+recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(globalLayout);
+```
+
+## ExpandableRecyclerView & Swipe, Drag/Drop
 
 #### 터치, Swipe, Drag&Drop
 
